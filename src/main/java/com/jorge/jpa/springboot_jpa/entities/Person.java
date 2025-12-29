@@ -21,7 +21,7 @@ public class Person {
     private String name;
     private String lastname;
 
-    @Column(name = "programming_languange")
+    @Column(name = "programming_language")
     private String programmingLanguage;
 
     @Override
