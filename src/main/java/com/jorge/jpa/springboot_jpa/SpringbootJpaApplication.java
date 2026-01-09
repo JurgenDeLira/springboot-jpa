@@ -36,7 +36,12 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Ingrese el id a eliminar: ");
 		Long id = scanner.nextLong();
-		repository.deleteById(id);
+
+		Optional<Person> optionalPerson = repository.findById(id);
+
+		optionalPerson.ifPresentOrElse(
+				repository::delete,
+				() -> System.out.println("Lo sentimos no exista le persona con ese id!"));
 
 		repository.findAll().forEach(System.out::println);
 
@@ -54,14 +59,14 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 		//optionalPerson.ifPresent(person -> {
 		if (optionalPerson.isPresent()) {
-			Person person = optionalPerson.orElseThrow();
+			Person personDb = optionalPerson.orElseThrow();
 
-			System.out.println(person);
+			System.out.println(personDb);
 			System.out.println("Ingrese el lenguaje de programación: ");
 			String programmingLanguage = scanner.next();
-			person.setProgrammingLanguage(programmingLanguage);
-			Person personDb = repository.save(person);
-			System.out.println(personDb);
+			personDb.setProgrammingLanguage(programmingLanguage);
+			Person personUpdated = repository.save(personDb);
+			System.out.println(personUpdated);
 		} else {
 			System.out.println("El usuario no esta presente! no existe!");
 		}
