@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Scanner;
 
 @SpringBootApplication
 public class SpringbootJpaApplication implements CommandLineRunner {
@@ -26,13 +28,27 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	}
 
+	@Transactional
 	public void create(){
-		Person person = new Person(null, "Lalo", "Thor", "Python");
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Ingrese el nombre: ");
+		String name = scanner.next();
+		System.out.println("Ingrese el apellido: ");
+		String lastname = scanner.next();
+		System.out.println("Ingrese el lenguaje de programación: ");
+		String programmingLanguage = scanner.next();
+		scanner.close();
+
+		Person person = new Person(null, name, lastname, programmingLanguage);
 
 		Person personNew = repository.save(person);
 		System.out.println(personNew);
+
+		repository.findById(personNew.getId()).ifPresent(p -> System.out.println(p)); // o (System.out::println)
+
 	}
 
+	@Transactional(readOnly = true)
 	public void findOne() {
 //		Person person = null;
 //		Optional<Person> optionalPerson = repository.findById(1L);
@@ -46,6 +62,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	}
 
+	@Transactional(readOnly = true)
 	public void list() {
 
 		//List<Person> persons = (List<Person>) repository.findAll();
