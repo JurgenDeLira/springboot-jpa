@@ -26,7 +26,28 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		personalizedQueries2();
+		personalizedQueriesDistinct();
+
+	}
+
+	@Transactional(readOnly = true)
+	public void personalizedQueriesDistinct(){
+		System.out.println("=============== consultas con nombres de personas ===============");
+		List<String> names = repository.findAllNames();
+		names.forEach(System.out::println);
+
+		System.out.println("=============== consultas con nombres únicos de personas ===============");
+		names = repository.findAllNamesDistinct();
+		names.forEach(System.out::println);
+
+		System.out.println("=============== consulta de lenguaje de programación únicas ===============");
+		List<String> languages = repository.findAllProgrammingLanguageDistinct();
+		languages.forEach(System.out::println);
+
+		System.out.println("=============== consulta con total de lenguajes de programación únicas ===============");
+		Long totalLanguage = repository.findAllProgrammingLanguageDistinctCount();
+		System.out.println("Total de lenguajes de programación: " + totalLanguage);
+
 
 	}
 
