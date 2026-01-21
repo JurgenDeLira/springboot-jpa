@@ -24,12 +24,14 @@ public class Person {
     @Column(name = "programming_language")
     private String programmingLanguage;
 
+    public Person(String name, String lastname) {
+        this.name = name;
+        this.lastname = lastname;
+    }
+
     @Override
     public String toString() {
         return
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", programmingLanguage='" + programmingLanguage;
+            "[id=" + id + ", name=" + ", lastname=" + lastname + ", programmingLanguage=" + programmingLanguage + "]";
     }
 }
