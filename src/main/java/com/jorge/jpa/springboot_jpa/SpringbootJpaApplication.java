@@ -1,5 +1,6 @@
 package com.jorge.jpa.springboot_jpa;
 
+import com.jorge.jpa.springboot_jpa.dto.PersonDto;
 import com.jorge.jpa.springboot_jpa.entities.Person;
 import com.jorge.jpa.springboot_jpa.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		System.out.println("consulta que puebla y devuelve objeto entity de una instancia personalizada");
 		List<Person> persons = repository.findAllObjectPersonPersonalized();
 		persons.forEach(System.out::println);
+
+		System.out.println("consulta que puebla y devuelve objeto dto de una clase personalizada");
+		List<PersonDto> personDto = repository.findAllPersonDto();
+		personDto.forEach(System.out::println);
 	}
 
 	@Transactional(readOnly = true)
