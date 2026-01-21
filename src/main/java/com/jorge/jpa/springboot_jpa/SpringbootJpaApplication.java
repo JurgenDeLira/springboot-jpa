@@ -38,6 +38,9 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 		persons = repository.findByNameBetweenOrderByNameDescLastnameDesc("J", "Q");
 		persons.forEach(System.out::println);
+
+		persons = repository.findAllByOrderByNameAscLastnameDesc();
+		persons.forEach(System.out::println);
 	}
 
 	@Transactional(readOnly = true)
@@ -55,7 +58,6 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		System.out.println("=============== consulta personalizada upper y lower case ===============");
 		List<Object[]> regs = repository.findAllPersonDataListCase();
 		regs.forEach(reg -> System.out.println("id=" + reg[0] + ", nombre=" + reg[1] + ", apellido=" +  reg[2] + ", lenguaje=" + reg[3]));
-
 
 
 
